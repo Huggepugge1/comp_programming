@@ -1,0 +1,14 @@
+module Main where
+
+import Text.Printf
+
+solve :: Int -> String
+solve w
+  | w `mod` 2 == 0 && w > 2 = "YES"
+  | otherwise = "NO"
+
+main :: IO ()
+main = do
+  w <- getLine
+  printf "%s" $ solve w
+λ> 

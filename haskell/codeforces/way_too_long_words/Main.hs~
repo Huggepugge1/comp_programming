@@ -1,0 +1,6 @@
+import Text.Printf
+
+solve :: String -> String
+solve i
+  | length i <= 4 = i
+  | otherwise = "%c%d%c" $ head i, (length i - 2), tail i
