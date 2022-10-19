@@ -1,0 +1,63 @@
+package main
+
+import (
+    "fmt"
+)
+
+func merge(a []int, b []int) []int {
+    final := []int{}
+    i := 0
+    j := 0
+    for i < len(a) && j < len(b) {
+        if a[i] < b[j] {
+            final = append(final, a[i])
+            i++
+        } else {
+            final = append(final, b[j])
+            j++
+        }
+    }
+    for ; i < len(a); i++ {
+        final = append(final, a[i])
+    }
+    for ; j < len(b); j++ {
+        final = append(final, b[j])
+    }
+    return final
+}
+
+func mergeSort(items []int) []int {
+    if len(items) < 2 {
+        return items
+    }
+    first := mergeSort(items[:len(items)/2])
+    second := mergeSort(items[len(items)/2:])
+    return merge(first, second)
+}
+
+func main() {
+    var a, b int
+    fmt.Scanln(&a)
+    fmt.Scanln(&b)
+    var c [1000000]int
+    for i := 0; i < b; i++ {
+        fmt.Scanf("%d", &c[i])
+    }
+    for i := b; i < 1000000; i++ {
+        c[i] = 0
+    }
+    c = mergeSort(c[:])
+    
+    var p1, p2, ans int = 0, 999999, 0
+
+    for p1 < p2 {
+        if c[p1]*c[p2] < a {
+            p1++
+        } else {
+            p1++
+            p2--
+            ans++
+        }
+    }
+    fmt.Printf("%d", ans)
+}
