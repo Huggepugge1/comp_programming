@@ -18,47 +18,41 @@ typedef map<string, string> mpss;
 typedef map<ll, string> mpis;
 typedef map <string, ll> mpsi;
 
-vvi memo;
+vector<vector<map<bool, ll>>> memo;
+string g;
 
-ll s(string g, ll pos, ll k, bool b = false) {
+ll s(ll pos, ll k, bool b) {
     if (pos == g.length()) {
         return 0;
     }
-    ll m = 0;
+    if (memo[k][pos][b] != 1000000000000) return memo[k][pos][b];
+    ll val = g[pos] == 'V' ? 1 : -1;
     if (k == 0) {
         if (b) {
-            m = max(s(g, pos + 1, k), s(g, pos + 1, k, true)) + g[pos] == 'V' ? 1 : -1;
-        } else {
-            return 0;
+            memo[k][pos][b] = max(val + s(pos + 1, k, true), (ll) 0);
         }
+        else return 0;
     }
     else {
-        if (b) {
-            m = max(s(g, pos + 1, k), max(s(g, pos + 1, k, true) + g[pos] == 'V' ? 1 : -1, s(g, pos + 1, k - 1, true) + g[pos] == 'V' ? 1 : -1));
-        } else {
-            m = max(s(g, pos + 1, k), s(g, pos + 1, k - 1, true) + g[pos] == 'V' ? 1 : -1);
-        }
+        if (b) memo[k][pos][b] = max(s(pos + 1, k, false), val + s(pos + 1, k, true));
+        else memo[k][pos][b] = max(s(pos + 1, k, false), val + s(pos + 1, k - 1, true));
     }
-    memo[k][pos] = m;
-    return m;
+    return memo[k][pos][b];
 }
 
 void solve() {
     ll n, k;
     cin >> n >> k;
-    string g;
     cin >> g;
-    ll m = 0;
     for (ll i = 0; i < k + 1; i++) {
         memo.pb({});
-        for (ll j = 0; j < n + 1; j++) {
-            memo[i].pb(-1);
+        for (ll j = 0; j < n; j++) {
+            memo[i].pb({});
+            memo[i][j][false] = 1000000000000;
+            memo[i][j][true] = 1000000000000;
         }
     }
-    for (ll i = 1; i < k + 1; i++) {
-        m = max(m, s(g, 0, i));
-    }
-    cout << m << endl;
+    cout << max((ll) 0, s(0, k, false)) << endl;
 }
 
 int main() {
