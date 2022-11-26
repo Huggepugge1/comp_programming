@@ -1,0 +1,18 @@
+  951  cd testdata
+  952  for a in dragkamp inomhusorientering morot sifferkryptot sistamoroten; do for i in 1 2 3; do cp ../../skol/$a//data/sample/$i.ans ${a}$i.ans; done; done
+  953  ls
+  954  rm *
+  955  for a in dragkamp inomhusorientering morot sifferkryptot sistamoroten; do for i in 1 2 3 4 5; do cp ../../skol/$a//data/secret/g$i/*.ans ${a}$i.ans; done; done
+  956  ls
+  957  cat inomhusorientering*
+  958  cat morot*
+  959  cat sistamoroten*.ans
+  960  cat dragkamp*
+  961  cat sifferkryptot*
+  962  cat ../../skol/sifferkryptot/submissions/accepted/js.cpp 
+  963  cat ../../skol/sifferkryptot/submissions/partially_accepted/js.cpp 
+  964  cat sifferkryptot*
+  965  for a in dragkamp inomhusorientering morot sifferkryptot sistamoroten; do for i in 1 2 3 4 5; do cp ../../skol/$a//data/secret/g$i/*.in ${a}$i.in; done; done
+  966  ls
+  967  cat morot*.in
+  968  cat morot*.ans

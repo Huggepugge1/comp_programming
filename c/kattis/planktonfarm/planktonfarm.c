@@ -77,14 +77,11 @@ int main() {
     
     mergeSort(c, 0, b - 1);
 
-    int ptr1 = 0, ptr2 = b - 1, ans = 0;
+    long *ptr1 = c, *ptr2 = c + b - 1;
+    int ans = 0;
     while (ptr1 < ptr2) {
-        if (c[ptr1] * c[ptr2] < a) {
-            ptr1++;
-        } else {
-            ptr1++;
-            ptr2--;
-            ans++;
+        if (*ptr1++ * *ptr2 >= a) {
+            ptr2--; ans++;
         }
     }
     printf("%lu\n", ans);
